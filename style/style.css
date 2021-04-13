@@ -1,0 +1,278 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+/***********HEADER********************/
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 11vh;
+    margin-bottom: 1em;
+}
+
+header h1 {
+    color: #d04f4f;
+    font-size: 2em;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoToque {
+    height: 2.5em;
+}
+
+/*************MAIN********************/
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.container {
+    width: 90vw;
+    
+}
+
+/********SEARCH SECTION *****************/
+
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchBar {
+    margin-bottom: 2em;
+}
+
+.searchTools {
+    width: 100%;
+    margin-bottom: 2em;
+}
+
+.searchTools form {
+    width: 100%;
+}
+/****** Tags ************************/
+.choosenTags {
+    margin-bottom: 1em;
+}
+
+/*** Three Buttons****************/
+.searchInput,
+.searchButton {
+    background-color: #e7e7e7;
+    color: black;
+    border: none;
+    height: 4em;
+}
+
+.searchInput {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    width: 89%;
+    color: rgba(0, 0, 0, 0.25);
+    font-size: 1.1em;
+    font-weight: 400;
+    padding-left: 1em;
+}
+
+.searchButton {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 10%;
+    font-size: 1.1em;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.items-search-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: auto;
+    margin-right: 1em;
+}
+
+.searchItemButton-group {
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+}
+
+.searchItemButton {
+    height: 4em;
+    color: white;
+    border: none;
+    border-radius: 5px;
+
+    padding-left: 1em;
+    font-size: 1.1em;
+    font-weight: 700;
+    position: relative;
+}
+
+.searchItemButton::placeholder {
+    color: white;
+}
+
+.ustensilesButton {
+    background-color: #ed6454;
+}
+
+.appareilsButton {
+    background: #68d9a4;
+}
+
+.ingredientsButton {
+    background: #3282f7;
+}
+
+.itemsList {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: white;
+    font-size: 1.1em;
+}
+
+#ustensilesList {
+    background-color: #ed6454;
+}
+
+#appareilsList {
+    background: #68d9a4;
+}
+
+#ingredientsList {
+    background: #3282f7;
+}
+
+.buttonArrowDown,
+.buttonArrowUp {
+    position: absolute;
+    right: 1em;
+    top: 45%;
+    height: 0.7em;
+}
+
+.dropDown {
+    position: relative;
+}
+.openDown {
+    height: 100%;
+    position: absolute;
+
+    top: 0px;
+    color: white;
+    right: 0;
+    width: 3em;
+    top: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.itemsList {
+    display: none;
+}
+
+
+
+
+
+/*************Result field***************/
+
+#resultSection {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.oneRecipe {
+    min-height: 22.5em;
+    width: 23.75em;
+    background: #e7e7e7;
+    margin-bottom: 2em;
+    border-radius: 5px;
+}
+
+.recipeImg {
+    height: 11.1em;
+    background: #c7bebe;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+}
+
+.recipeBody {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding : 0 1em;
+}
+
+.recipeTopBody {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding : 1.5em 0;
+    width: 100%;
+}
+
+.recipeBottomBody {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.recipeBottomBody ul {
+    width : 10.5em;
+    min-height : 7em;
+}
+
+.recipeTime {
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+.recipeTitle{
+    font-size: 1.1em;
+    font-weight: 400;
+}
+
+.ingredientLi {
+font-size : 0.75em;
+
+}
+
+.ingredientName {
+font-weight: 700;
+}
+
+.recipeDesc{
+    width : 10.5em;
+    height : 7em;
+    overflow: hidden;
+    font-size: 0.75em;
+}

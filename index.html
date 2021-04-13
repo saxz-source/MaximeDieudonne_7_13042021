@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="./style/style.css" rel="stylesheet" />
+        <title>Document</title>
+    </head>
+
+    <body>
+        <header class="col-12">
+            <img
+                src="./style/images/toque.svg"
+                alt="toque logo les petits plats"
+                class="logoToque"
+            />
+            <h1 class="logoTitle">Les petits plats</h1>
+        </header>
+
+        <main class="container">
+            <section class="searchTools">
+                <nav class="navbar">
+                    <form class="searchBar">
+                        <div class="form-group searchBar">
+                            <input
+                                class="form-control searchInput"
+                                type="search"
+                                placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
+                                aria-label="Rechercher un ingrédient, appareil, ustensiles ou une recette"
+                            />
+                            <button class="searchButton" type="submit">
+                                Search
+                            </button>
+                        </div>
+
+                        <div class="choosenTags"></div>
+
+                        <div class="form-group">
+                            <div class="searchItemButton-group">
+                                <div class="items-search-group">
+                                    <div class="dropDown">
+                                        <input
+                                            type="text"
+                                            class="ingredientsButton searchItemButton"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                            placeholder="Ingrédients"
+                                        />
+                                        <button class="openDown">&xvee;</button>
+                                    </div>
+
+                                    <div id="ingredientsList" class="itemsList">
+                                        <ul>
+                                            List of
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="items-search-group">
+                                    <div class="dropDown">
+                                        <input
+                                            type="text"
+                                            class="appareilsButton searchItemButton"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                            placeholder="Appareils"
+                                        />
+                                        <button class="openDown">&xvee;</button>
+                                    </div>
+
+                                    <div id="appareilsList" class="itemsList">
+                                        List of
+                                    </div>
+                                </div>
+
+                                <div class="items-search-group">
+                                    <div class="dropDown">
+                                        <input
+                                            type="text"
+                                            class="ustensilesButton searchItemButton"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                            placeholder="Ustensiles"
+                                        />
+                                        <button class="openDown">&xvee;</button>
+                                    </div>
+
+                                    <div id="ustensilesList" class="itemsList">
+                                        List of
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="row"></div>
+                </nav>
+            </section>
+
+            <section id="resultSection"></section>
+        </main>
+        <script type="module" src="./index.js"></script>
+    </body>
+</html>
