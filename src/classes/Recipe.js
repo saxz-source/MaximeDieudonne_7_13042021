@@ -37,7 +37,6 @@ export class Recipe {
 
         // Fill Recipe Body Top Part
         let recipeTitle = this.createRecipeTitle(this.name);
-        console.log(recipeTitle);
         recipeTopBody.appendChild(recipeTitle);
         let recipeTime = this.createRecipeTime(this.time);
         recipeTopBody.appendChild(recipeTime);
@@ -70,6 +69,11 @@ export class Recipe {
         return recipeTitle;
     }
 
+    /**
+     * Creates the HTML List of the ingredients list
+     * @param ingredientsList 
+     * @returns 
+     */
     createRecipeIngredients(ingredientsList) {
         let ingredientsDiv = document.createElement("ul");
         ingredientsDiv.classList.add("ingredientDiv");
@@ -83,10 +87,14 @@ export class Recipe {
         return ingredientsDiv;
     }
 
+    /**
+     * 
+     * @param ingredient a single ingredient
+     * @returns a formated ingredient string
+     */
     formatIngredients(ingredient) {
         ingredient = new Ingredients(ingredient);
-      let ingredientString =  ingredient.getIngredientString();
-
+        let ingredientString = ingredient.getIngredientString();
         return ingredientString;
     }
 

@@ -12,10 +12,10 @@ export class Ingredients {
             "<span class='ingredientName'>" +
             this.name +
             "</span>" +
-            quantityString + " " 
-            +
+            quantityString +
+            " " +
             this.unit;
-            
+
         return string;
     }
 }

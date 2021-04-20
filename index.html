@@ -34,59 +34,77 @@
                             </button>
                         </div>
 
-                        <div class="choosenTags"></div>
+                        <div id="choosenTags"></div>
 
                         <div class="form-group">
                             <div class="searchItemButton-group">
                                 <div class="items-search-group">
                                     <div class="dropDown">
                                         <input
+                                            id="ingredientInput"
                                             type="text"
                                             class="ingredientsButton searchItemButton"
                                             aria-haspopup="true"
                                             aria-expanded="false"
                                             placeholder="Ingrédients"
                                         />
-                                        <button class="openDown">&xvee;</button>
-                                    </div>
-
-                                    <div id="ingredientsList" class="itemsList">
-                                        <ul>
-                                            List of
-                                        </ul>
+                                        <button
+                                            class="openDown"
+                                            id="ingredientButton"
+                                        >
+                                            &xvee;
+                                        </button>
+                                        <div
+                                            id="ingredientPanel"
+                                            class="itemsList"
+                                        >
+                                            <ul id="ingredientList"></ul>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="items-search-group">
                                     <div class="dropDown">
                                         <input
+                                            id="applianceInput"
                                             type="text"
                                             class="appareilsButton searchItemButton"
                                             aria-haspopup="true"
                                             aria-expanded="false"
                                             placeholder="Appareils"
                                         />
-                                        <button class="openDown">&xvee;</button>
+                                        <button
+                                            class="openDown"
+                                            id="applianceButton"
+                                        >
+                                            &xvee;
+                                        </button>
                                     </div>
 
-                                    <div id="appareilsList" class="itemsList">
-                                        List of
+                                    <div id="appliancePanel" class="itemsList">
+                                        <ul id="applianceList"></ul>
                                     </div>
                                 </div>
 
                                 <div class="items-search-group">
                                     <div class="dropDown">
                                         <input
+                                            id="ustensilInput"
                                             type="text"
                                             class="ustensilesButton searchItemButton"
                                             aria-haspopup="true"
                                             aria-expanded="false"
                                             placeholder="Ustensiles"
                                         />
-                                        <button class="openDown">&xvee;</button>
+                                        <button
+                                            class="openDown"
+                                            id="ustensilButton"
+                                        >
+                                            &xvee;
+                                        </button>
                                     </div>
 
-                                    <div id="ustensilesList" class="itemsList">
-                                        List of
+                                    <div id="ustensilPanel" class="itemsList">
+                                        <ul id="ustensilList"></ul>
                                     </div>
                                 </div>
                             </div>
