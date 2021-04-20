@@ -9,6 +9,7 @@ export class ApplianceButton {
         this.list = document.getElementById("applianceList");
         this.color = "#68d9a4";
         this.open = false;
+        this.type = "appliance"
     }
 
     setApplianceButton() {
@@ -18,7 +19,6 @@ export class ApplianceButton {
     }
 
     activateButton() {
-        console.log(this.button);
         this.button.addEventListener("click", (e) => {
             e.preventDefault();
 
@@ -77,13 +77,13 @@ export class ApplianceButton {
         option.classList.add("applianceOptions");
         option.textContent = item;
         option.addEventListener("click", (e) => {
-            this.createATag(item, this.color);
+            this.createATag(item, this.color, this.type);
         });
         return option;
     }
 
-    createATag(item, color) {
-        let tag = new Tag(item, color);
+    createATag(item, color, type) {
+        let tag = new Tag(item, color, type);
         tag.createATag();
     }
 }

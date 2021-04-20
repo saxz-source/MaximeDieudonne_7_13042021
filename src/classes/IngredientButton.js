@@ -10,6 +10,7 @@ export class IngredientButton {
         this.color = "#3282f7";
         this.open = false;
         this.actualArray = ingredientsArray;
+        this.type = "ingredient";
     }
 
     setIngredientButton() {
@@ -76,13 +77,13 @@ export class IngredientButton {
         option.classList.add("ingredientOptions");
         option.textContent = item;
         option.addEventListener("click", (e) => {
-            this.createATag(item, this.color);
+            this.createATag(item, this.color, this.type);
         });
         return option;
     }
 
-    createATag(item, color) {
-        let tag = new Tag(item, color);
+    createATag(item, color, type) {
+        let tag = new Tag(item, color, type);
         tag.createATag();
     }
 }

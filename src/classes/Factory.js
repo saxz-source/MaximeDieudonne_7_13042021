@@ -11,22 +11,55 @@ export class Factory {
         this.allAppliances = this.getAllAppliances(this.recipes);
         this.allUstensils = this.getAllUstensils(this.recipes);
         this.actualRecipes;
-        this.actualIngredients;
+        this.ingredientTags = [];
         this.actualAppliances;
         this.actualUstensils;
-        this.filters = {};
+        this.filters = filters;
     }
 
     factoring() {
+        this.removeOldRecipes();
         this.generateRecipes();
         this.setButtons();
     }
 
+    removeOldRecipes() {
+        let recipeHTML = document.querySelectorAll(".oneRecipe");
+        recipeHTML.forEach((el) => el.remove());
+    }
+
     generateRecipes() {
+        let actualRecipes = [];
         for (let recipe of this.recipes) {
+            console.log(this.checkIfFiltered(recipe));
+            if (this.checkIfFiltered(recipe)) continue;
+            actualRecipes.push(recipe);
             recipe = new Recipe(recipe);
             recipe.generateRecipe();
         }
+        this.actualRecipes = actualRecipes;
+    }
+
+    checkIfFiltered(oneRecipe) {
+        for (let item of this.filters.ingredient) {
+            console.log(item);
+            console.log(
+                oneRecipe.ingredients.filter((el) => el.ingredient === item)
+                    .length
+            );
+            if (
+                oneRecipe.ingredients.filter((el) => el.ingredient === item)
+                    .length > 0
+            )
+                return true;
+        }
+        // for (let item of this.filters.appliance) {
+        //     if (oneRecipe.appliance.includes(item)) return true;
+        // }
+        // for (let item of this.filters.ustensil) {
+        //     if (oneRecipe.ustensils.flat().includes(item)) return true;
+        // }
+        return false;
     }
 
     setButtons() {
@@ -34,7 +67,6 @@ export class Factory {
         ingredientButton.setIngredientButton();
         let applianceButton = new ApplianceButton(this.allAppliances);
         applianceButton.setApplianceButton();
-        console.log(this.allUstensils);
         let ustensilButton = new UstensilButton(this.allUstensils);
         ustensilButton.setUstensilButton();
     }

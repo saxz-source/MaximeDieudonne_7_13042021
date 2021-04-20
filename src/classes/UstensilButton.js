@@ -10,6 +10,7 @@ export class UstensilButton {
         this.color = "#ed6454";
         this.open = false;
         this.inputFocus = false;
+        this.type = "ustensil"
     }
 
     setUstensilButton() {
@@ -19,7 +20,6 @@ export class UstensilButton {
     }
 
     activateButton() {
-        console.log(this.button);
         this.button.addEventListener("click", (e) => {
             e.preventDefault();
             if (this.open === false) {
@@ -76,13 +76,13 @@ export class UstensilButton {
         option.classList.add("ustensilsOptions");
         option.textContent = item;
         option.addEventListener("click", (e) => {
-            this.createATag(item, this.color);
+            this.createATag(item, this.color, this.type);
         });
         return option;
     }
 
-    createATag(item, color) {
-        let tag = new Tag(item, color);
+    createATag(item, color, type) {
+        let tag = new Tag(item, color, type);
         tag.createATag();
     }
 }
