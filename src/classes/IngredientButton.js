@@ -1,4 +1,5 @@
 import { Tag } from "./Tag.js";
+import { filters } from "../data/filters.js";
 
 export class IngredientButton {
     constructor(ingredientsArray) {
@@ -13,53 +14,69 @@ export class IngredientButton {
         this.type = "ingredient";
     }
 
+    /**
+     * set the ingredient Button
+     */
     setIngredientButton() {
         this.activateTextInput();
         this.activateButton();
         this.generateOptions();
     }
 
+    /**
+     * Set the click listener
+     */
     activateButton() {
         this.button.addEventListener("click", (e) => {
             e.preventDefault();
             if (this.open === false) {
-                this.panel.style.display = "block";
-                this.open = true;
-                this.inputField.setAttribute(
-                    "placeholder",
-                    "Recherche un ingédient"
-                );
+                this.setOpenState();
                 return;
             }
-            this.panel.style.display = "none";
-            this.open = false;
-            this.inputField.setAttribute("placeholder", "Ingrédients");
+            this.setClosedState();
             return;
         });
     }
 
+    /**
+     * set the Input listener
+     */
     activateTextInput() {
         this.inputField.addEventListener("focus", (e) => {
-            this.inputField.setAttribute(
-                "placeholder",
-                "Recherche un ingédient"
-            );
-            this.panel.style.display = "block";
-            this.open = true;
+            this.setOpenState();
         });
 
         this.inputField.addEventListener("input", (e) => {
             e.preventDefault();
-            console.log(e.target.value);
             this.changeOptions(e.target.value);
         });
     }
 
+    setOpenState() {
+        this.open = true;
+        this.panel.style.display = "block";
+        this.button.innerHTML = "&wedge;"
+        this.inputField.setAttribute("placeholder", "Recherche un ingrédient");
+        this.inputField.style.borderBottomLeftRadius = "0";
+        this.inputField.style.borderBottomRightRadius = "0";
+    }
+
+    setClosedState() {
+        this.open = false;
+        this.inputField.setAttribute("placeholder", "Ingrédients");
+        this.panel.style.display = "none";
+        this.button.innerHTML = "&xvee;"
+        this.inputField.style.borderBottomLeftRadius = "5px";
+        this.inputField.style.borderBottomRightRadius = "5px";
+    }
+
     changeOptions(inputString) {
+        let lowInputString = inputString.toLowerCase();
         let optRemoving = document.querySelectorAll(".ingredientOptions");
         optRemoving.forEach((el) => el.remove());
         for (let item of this.ingredientsArray) {
-            if (!item.includes(inputString)) continue;
+            let lowItem = item.toLowerCase();
+            if (!lowItem.includes(lowInputString)) continue;
             let option = this.createOptionDiv(item);
             this.list.appendChild(option);
         }
@@ -77,7 +94,8 @@ export class IngredientButton {
         option.classList.add("ingredientOptions");
         option.textContent = item;
         option.addEventListener("click", (e) => {
-            this.createATag(item, this.color, this.type);
+            if (!filters.ingredient.includes(item))
+                this.createATag(item, this.color, this.type);
         });
         return option;
     }

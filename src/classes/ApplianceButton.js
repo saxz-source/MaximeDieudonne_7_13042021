@@ -1,4 +1,6 @@
 import { Tag } from "./Tag.js";
+import { filters } from "../data/filters.js";
+
 
 export class ApplianceButton {
     constructor(appliancesArray) {
@@ -9,7 +11,7 @@ export class ApplianceButton {
         this.list = document.getElementById("applianceList");
         this.color = "#68d9a4";
         this.open = false;
-        this.type = "appliance"
+        this.type = "appliance";
     }
 
     setApplianceButton() {
@@ -77,7 +79,8 @@ export class ApplianceButton {
         option.classList.add("applianceOptions");
         option.textContent = item;
         option.addEventListener("click", (e) => {
-            this.createATag(item, this.color, this.type);
+            if (!filters.appliance.includes(item))
+                this.createATag(item, this.color, this.type);
         });
         return option;
     }

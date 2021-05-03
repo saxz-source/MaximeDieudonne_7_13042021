@@ -59,6 +59,8 @@ body {
 
 .searchBar {
     margin-bottom: 2em;
+    width: 100%;
+  
 }
 
 .searchTools {
@@ -67,6 +69,10 @@ body {
 }
 
 .searchTools form {
+    width: 100%;
+}
+
+.form-group {
     width: 100%;
 }
 /****** Tags ************************/
@@ -174,8 +180,6 @@ body {
     background: #3282f7;
 }
 
-
-
 #ustensilList {
     background-color: #ed6454;
 }
@@ -201,7 +205,7 @@ body {
 }
 .openDown {
     height: 4em;
-    padding : 2em 1em;
+    padding: 2em 1em;
     position: absolute;
     top: 0px;
     color: white;
@@ -217,12 +221,9 @@ body {
     font-size: 1.1em;
     display: none;
     max-width: 42em;
-    
 }
 
-
 .itemsList ul {
-  
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -232,7 +233,7 @@ body {
 .itemsList li {
     width: 10em;
     padding: 0.3em 0.5em;
-    cursor : pointer;
+    cursor: pointer;
 }
 
 /*************Result field***************/
@@ -291,11 +292,19 @@ body {
 .recipeTime {
     font-size: 1.1em;
     font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clockImg {
+    margin-right: 0.5em;
 }
 
 .recipeTitle {
     font-size: 1.1em;
     font-weight: 400;
+    max-width: 65%;
 }
 
 .ingredientLi {
@@ -312,6 +321,6 @@ body {
     overflow: hidden;
     font-size: 0.75em;
     display: -webkit-box;
-  -webkit-line-clamp: 7;
-  -webkit-box-orient: vertical;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
 }

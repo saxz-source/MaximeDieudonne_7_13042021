@@ -58,7 +58,10 @@ export class Recipe {
     createRecipeTime(time) {
         let timeDiv = document.createElement("div");
         timeDiv.classList.add("recipeTime");
-        timeDiv.textContent = time + " min";
+        timeDiv.innerHTML =
+            "<img src='./style/images/clock.svg' alt='clock' class='clockImg'/> " + 
+            time +
+            " min";
         return timeDiv;
     }
 
@@ -71,8 +74,8 @@ export class Recipe {
 
     /**
      * Creates the HTML List of the ingredients list
-     * @param ingredientsList 
-     * @returns 
+     * @param ingredientsList
+     * @returns
      */
     createRecipeIngredients(ingredientsList) {
         let ingredientsDiv = document.createElement("ul");
@@ -88,7 +91,7 @@ export class Recipe {
     }
 
     /**
-     * 
+     *
      * @param ingredient a single ingredient
      * @returns a formated ingredient string
      */

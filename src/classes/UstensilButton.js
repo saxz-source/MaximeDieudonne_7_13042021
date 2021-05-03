@@ -1,4 +1,6 @@
 import { Tag } from "./Tag.js";
+import { filters } from "../data/filters.js";
+
 
 export class UstensilButton {
     constructor(ustensilArray) {
@@ -10,7 +12,7 @@ export class UstensilButton {
         this.color = "#ed6454";
         this.open = false;
         this.inputFocus = false;
-        this.type = "ustensil"
+        this.type = "ustensil";
     }
 
     setUstensilButton() {
@@ -67,6 +69,8 @@ export class UstensilButton {
     generateOptions() {
         for (let item of this.ustensilArray) {
             let option = this.createOptionDiv(item);
+            option.classList.add("ustensilsOptions");
+
             this.list.appendChild(option);
         }
     }
@@ -76,6 +80,8 @@ export class UstensilButton {
         option.classList.add("ustensilsOptions");
         option.textContent = item;
         option.addEventListener("click", (e) => {
+            if (!filters.ustensil.includes(item))
+
             this.createATag(item, this.color, this.type);
         });
         return option;
