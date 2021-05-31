@@ -1,7 +1,6 @@
 import { Tag } from "./Tag.js";
 import { filters } from "../data/filters.js";
 
-
 export class ApplianceButton {
     constructor(appliancesArray) {
         this.appliancesArray = appliancesArray;
@@ -11,7 +10,10 @@ export class ApplianceButton {
         this.list = document.getElementById("applianceList");
         this.color = "#68d9a4";
         this.open = false;
+        this.actualArray = appliancesArray;
         this.type = "appliance";
+        this.formElement = document.getElementById("searchTags")
+
     }
 
     setApplianceButton() {
@@ -23,45 +25,59 @@ export class ApplianceButton {
     activateButton() {
         this.button.addEventListener("click", (e) => {
             e.preventDefault();
-
             if (this.open === false) {
-                this.panel.style.display = "block";
-                this.open = true;
-                this.inputField.setAttribute(
-                    "placeholder",
-                    "Recherche un appareil"
-                );
+                this.setOpenState();
                 return;
             }
-            this.panel.style.display = "none";
-            this.open = false;
-            this.inputField.setAttribute("placeholder", "Appareils");
-
+            this.setClosedState();
             return;
         });
     }
 
+    /**
+     * set the Input listener
+     */
     activateTextInput() {
         this.inputField.addEventListener("focus", (e) => {
-            this.inputField.setAttribute(
-                "placeholder",
-                "Recherche un appareil"
-            );
-            this.panel.style.display = "block";
-            this.open = true;
+            this.setOpenState();
         });
         this.inputField.addEventListener("input", (e) => {
             e.preventDefault();
-            console.log(e.target.value);
-            this.changeOptions(e.target.value);
+            let theValue = e.target.value;
+            if (theValue.length > 0)
+                this.inputField.classList.remove("greyedPlaceholder");
+            this.changeOptions(theValue);
         });
     }
 
+    setOpenState() {
+        this.open = true;
+        this.panel.style.display = "block";
+        this.button.innerHTML = "&wedge;";
+        this.inputField.setAttribute("placeholder", "Rechercher un appareil");
+        this.inputField.classList.add("greyedPlaceholder");
+        this.inputField.style.borderBottomLeftRadius = "0";
+        this.inputField.style.borderBottomRightRadius = "0";
+    }
+
+    setClosedState() {
+        this.open = false;
+        this.inputField.setAttribute("placeholder", "Appareils");
+        this.panel.style.display = "none";
+        this.button.innerHTML = "&xvee;";
+        this.inputField.style.borderBottomLeftRadius = "5px";
+        this.inputField.style.borderBottomRightRadius = "5px";
+        this.inputField.classList.remove("greyedPlaceholder");
+
+    }
+
     changeOptions(inputString) {
+        let lowInputString = inputString.toLowerCase();
         let optRemoving = document.querySelectorAll(".applianceOptions");
         optRemoving.forEach((el) => el.remove());
-        for (let item of this.appliancesArray) {
-            if (!item.includes(inputString)) continue;
+        for (let item of this.ingredientsArray) {
+            let lowItem = item.toLowerCase();
+            if (!lowItem.includes(lowInputString)) continue;
             let option = this.createOptionDiv(item);
             this.list.appendChild(option);
         }
@@ -81,6 +97,10 @@ export class ApplianceButton {
         option.addEventListener("click", (e) => {
             if (!filters.appliance.includes(item))
                 this.createATag(item, this.color, this.type);
+                this.setClosedState();
+                this.formElement.reset()
+
+
         });
         return option;
     }

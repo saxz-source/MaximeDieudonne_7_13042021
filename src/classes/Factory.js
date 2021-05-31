@@ -3,9 +3,12 @@ import { UstensilButton } from "./UstensilButton.js";
 import { ApplianceButton } from "./ApplianceButton.js";
 import { Recipe } from "./Recipe.js";
 import { searchFilter } from "../data/filters.js";
+import { formatString } from "../functions/formatCompareString.js";
 
 export class Factory {
     constructor(recipes, filters, searchFilter) {
+        this.noMessage = document.getElementById("noMessage");
+
         this.recipes = recipes;
         this.allIngredients = [];
         this.allAppliances = [];
@@ -39,17 +42,31 @@ export class Factory {
      * Create recipes
      */
     generateRecipes() {
+        const t0 = performance.now();
         let actualRecipes = [];
-        console.log(this.filters);
+
         for (let recipe of this.recipes) {
             if (!this.checkIfSearchFiltered(recipe)) continue;
-            if (!this.checkIfFiltered(recipe)) continue;
+           // if (!this.checkIfTagFiltered(recipe)) continue; //removed for speed test
             actualRecipes.push(recipe);
             recipe = new Recipe(recipe);
             recipe.generateRecipe();
         }
-        this.actualRecipes = actualRecipes;
 
+        this.actualRecipes = actualRecipes;
+        let noMess;
+        if (this.actualRecipes.length < 1) {
+            document.getElementById("resultSection").innerHTML = ""
+                noMess = document.createElement("p");
+                noMess.textContent = "oklm";
+                document.getElementById("resultSection").appendChild(noMess);
+            
+        } else {
+            if (noMess) noMess.remove();
+        }
+        const t1 = performance.now();
+        console.log(t1 - t0, "milliseconds");
+        // Actual variables for tag handling
         this.allIngredients = this.getAllIngredients(actualRecipes);
         this.allAppliances = this.getAllAppliances(actualRecipes);
         this.allUstensils = this.getAllUstensils(actualRecipes);
@@ -63,17 +80,23 @@ export class Factory {
     checkIfSearchFiltered(oneRecipe) {
         if (searchFilter[0]) {
             let fullString =
-                JSON.stringify(oneRecipe.name.toLowerCase()) +
-                JSON.stringify(oneRecipe.description.toLowerCase()) +
+                JSON.stringify(oneRecipe.name) +
+                JSON.stringify(oneRecipe.description) +
                 JSON.stringify(
-                    oneRecipe.ingredients.map((el) =>
-                        el.ingredient.toLowerCase()
-                    )
+                    oneRecipe.ingredients.map((el) => el.ingredient)
                 );
-            if (fullString.includes(searchFilter[0].toLowerCase())) return true;
+            fullString = formatString(fullString);
+            if (fullString.includes(formatString(searchFilter[0]))) return true;
             return false;
         }
         return true;
+    }
+
+    formatString(string) {
+        return string
+            .toUpperCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
     }
 
     /**
@@ -81,7 +104,7 @@ export class Factory {
      * @param oneRecipe One recipe
      * @returns a true or false
      */
-    checkIfFiltered(oneRecipe) {
+    checkIfTagFiltered(oneRecipe) {
         // if there are tags, then filter. Else, display all
         let lengthOfFilters =
             this.filters.ingredient.length +
@@ -93,20 +116,20 @@ export class Factory {
                 if (
                     oneRecipe.ingredients.filter(
                         (el) =>
-                            el.ingredient.toLowerCase() === item.toLowerCase()
+                            formatString(el.ingredient) === formatString(item)
                     ).length > 0
                 )
                     haveFilteredItem++;
             }
             for (let item of this.filters.appliance) {
-                if (oneRecipe.appliance.toLowerCase() === item.toLowerCase())
+                if (formatString(oneRecipe.appliance) === formatString(item))
                     haveFilteredItem++;
             }
             for (let item of this.filters.ustensil) {
                 if (
                     oneRecipe.ustensils
                         .flat()
-                        .filter((el) => el.toLowerCase() === item.toLowerCase())
+                        .filter((el) => formatString(el) === formatString(item))
                         .length > 0
                 )
                     haveFilteredItem++;

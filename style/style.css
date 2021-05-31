@@ -1,7 +1,22 @@
+@font-face {
+    font-family: "Lato-reg";
+    src: url("./fonts/Lato/Lato-Regular400.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "DMSans";
+    src: url("./fonts/DMSans/DMSans-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Roboto";
+    src: url("./fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: "Lato-reg";
 }
 
 ul,
@@ -31,6 +46,7 @@ header h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: "DMSans";
 }
 
 .logoToque {
@@ -57,12 +73,6 @@ body {
     align-items: center;
 }
 
-.searchBar {
-    margin-bottom: 2em;
-    width: 100%;
-  
-}
-
 .searchTools {
     width: 100%;
     margin-bottom: 2em;
@@ -70,10 +80,24 @@ body {
 
 .searchTools form {
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .form-group {
     width: 100%;
+}
+
+.searchBar {
+    margin-bottom: 2em;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: baseline;
+}
+
+.searchInput:focus {
+    color : black;
 }
 /****** Tags ************************/
 #choosenTags {
@@ -90,7 +114,7 @@ body {
     align-items: center;
     color: white;
     font-size: 0.9em;
-    padding: 0.5em 1em;
+    padding: 0.5em 1.5em;
     margin-right: 1.5em;
     margin-bottom: 1em;
     border-radius: 5px;
@@ -107,6 +131,14 @@ body {
     border: 2px solid white;
     border-radius: 100%;
     cursor: pointer;
+}
+
+.closeTag {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8em;
+    padding: 0.7em;
 }
 
 /*** Three Buttons****************/
@@ -126,6 +158,7 @@ body {
     font-size: 1.1em;
     font-weight: 400;
     padding-left: 1em;
+    outline: none;
 }
 
 .searchButton {
@@ -141,14 +174,17 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: auto;
+    min-width: 20vw;
     margin-right: 1em;
+    position: relative;
+    overflow: visible;
 }
 
 .searchItemButton-group {
     display: flex;
     justify-content: flex-start;
     align-items: baseline;
+    width: 100%;
 }
 
 .searchItemButton {
@@ -156,7 +192,6 @@ body {
     color: white;
     border: none;
     border-radius: 5px;
-
     padding-left: 1em;
     font-size: 1.1em;
     font-weight: 700;
@@ -167,6 +202,13 @@ body {
 .searchItemButton::placeholder {
     color: white;
 }
+
+.greyedPlaceholder::placeholder {
+    color: rgba(255, 255, 255, 0.514);
+}
+
+
+
 
 .ustensilesButton {
     background-color: #ed6454;
@@ -202,6 +244,7 @@ body {
 
 .dropDown {
     position: relative;
+    width: 100%;
 }
 .openDown {
     height: 4em;
@@ -220,7 +263,8 @@ body {
     color: white;
     font-size: 1.1em;
     display: none;
-    max-width: 42em;
+    max-height: 5vh;
+    width: 100%;
 }
 
 .itemsList ul {
@@ -228,6 +272,8 @@ body {
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .itemsList li {
@@ -237,7 +283,9 @@ body {
 }
 
 /*************Result field***************/
-
+#noMessage{
+    display : none
+}
 #resultSection {
     width: 100%;
     display: flex;
@@ -323,4 +371,5 @@ body {
     display: -webkit-box;
     -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
+    font-family: "Roboto";
 }

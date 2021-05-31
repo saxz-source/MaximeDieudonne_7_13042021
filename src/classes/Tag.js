@@ -1,5 +1,6 @@
 import { filters } from "../data/filters.js";
 import { launchFactory } from "../functions/launchFactory.js";
+import { formatString } from "../functions/formatCompareString.js";
 
 export class Tag {
     constructor(item, color, type) {
@@ -23,9 +24,12 @@ export class Tag {
      * add tag filters to filters array
      */
     addTagFilters() {
-        if (this.type === "ingredient") filters.ingredient.push(this.item);
-        if (this.type === "appliance") filters.appliance.push(this.item);
-        if (this.type === "ustensil") filters.ustensil.push(this.item);
+        if (this.type === "ingredient")
+            filters.ingredient.push(formatString(this.item));
+        if (this.type === "appliance")
+            filters.appliance.push(formatString(this.item));
+        if (this.type === "ustensil")
+            filters.ustensil.push(formatString(this.item));
 
         launchFactory();
     }
@@ -39,7 +43,7 @@ export class Tag {
         if (this.type === "ingredient") {
             let ingredientTags = filters.ingredient;
             let newIngredientTags = ingredientTags.filter(
-                (el) => el !== this.item
+                (el) => el !== formatString(this.item)
             );
             filters.ingredient = newIngredientTags;
         }
@@ -47,15 +51,18 @@ export class Tag {
         if (this.type === "appliance") {
             let applianceTags = filters.appliance;
             let newApplianceTags = applianceTags.filter(
-                (el) => el !== this.item
+                (el) => el !== formatString(this.item)
             );
             filters.appliance = newApplianceTags;
         }
         if (this.type === "ustensil") {
             let ustensilTags = filters.ustensil;
-            let newUstensilTags = ustensilTags.filter((el) => el !== this.item);
+            let newUstensilTags = ustensilTags.filter(
+                (el) => el !== formatString(this.item)
+            );
             filters.ustensil = newUstensilTags;
         }
+        console.log(filters)
         launchFactory();
     }
 
@@ -72,6 +79,7 @@ export class Tag {
         divTag.appendChild(text);
         let cross = document.createElement("div");
         cross.textContent = "X";
+        cross.classList.add("closeTag");
         cross.addEventListener("click", (e) => {
             e.preventDefault();
             this.removeTageFilters(divTag);

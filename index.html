@@ -21,17 +21,17 @@
         <main class="container">
             <section class="searchTools">
                 <nav class="navbar">
-                    <form class="searchBar">
+                    <form class="searchBar" id="searchTags">
                         <div class="form-group searchBar">
                             <input
                                 class="form-control searchInput"
-                                id = "searchInput"
-                                type="search"
+                                id="searchInput"
+                          
                                 placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette"
                                 aria-label="Rechercher un ingrédient, appareil, ustensiles ou une recette"
                             />
-                            <button class="searchButton" type="submit">
-                                <img src="style/images/loupe.svg"/>
+                            <button class="searchButton" disabled>
+                                <img src="style/images/loupe.svg" />
                             </button>
                         </div>
 
@@ -39,12 +39,16 @@
 
                         <div class="form-group">
                             <div class="searchItemButton-group">
+                                
                                 <div class="items-search-group">
                                     <div class="dropDown">
                                         <input
                                             id="ingredientInput"
                                             type="text"
-                                            class="ingredientsButton searchItemButton"
+                                            class="
+                                                ingredientsButton
+                                                searchItemButton
+                                            "
                                             aria-haspopup="true"
                                             aria-expanded="false"
                                             placeholder="Ingrédients"
@@ -63,12 +67,16 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="items-search-group">
                                     <div class="dropDown">
                                         <input
                                             id="applianceInput"
                                             type="text"
-                                            class="appareilsButton searchItemButton"
+                                            class="
+                                                appareilsButton
+                                                searchItemButton
+                                            "
                                             aria-haspopup="true"
                                             aria-expanded="false"
                                             placeholder="Appareils"
@@ -91,7 +99,10 @@
                                         <input
                                             id="ustensilInput"
                                             type="text"
-                                            class="ustensilesButton searchItemButton"
+                                            class="
+                                                ustensilesButton
+                                                searchItemButton
+                                            "
                                             aria-haspopup="true"
                                             aria-expanded="false"
                                             placeholder="Ustensiles"
@@ -116,7 +127,10 @@
                 </nav>
             </section>
 
-            <section id="resultSection"></section>
+            <section id="resultSection">
+
+                <p id="noMessage">Aucune recette trouvée</p>
+            </section>
         </main>
         <script type="module" src="./index.js"></script>
     </body>

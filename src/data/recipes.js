@@ -1722,3 +1722,13 @@ export const recipes = [
         "ustensils":["rouleau à patisserie","fouet"]
     }
 ]
+
+
+
+
+
+
+
+// https://www.youtube.com/watch?v=oewDaISQpw0
+// https://www.youtube.com/watch?v=EA9bRtw8slU
+// https://www.youtube.com/watch?v=JwKbKCq0iio

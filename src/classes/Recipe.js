@@ -46,8 +46,14 @@ export class Recipe {
         recipeBottomBody.appendChild(recipeIngredients);
         let recipeDesc = this.createRecipeDesc(this.description);
         recipeBottomBody.appendChild(recipeDesc);
+
     }
 
+    /**
+     * add description to recipe
+     * @param description recipe description
+     * @returns html with desc
+     */
     createRecipeDesc(description) {
         let recipeDesc = document.createElement("p");
         recipeDesc.classList.add("recipeDesc");
@@ -55,6 +61,11 @@ export class Recipe {
         return recipeDesc;
     }
 
+     /**
+     * add time to recipe
+     * @param description recipe time
+     * @returns html with time
+     */
     createRecipeTime(time) {
         let timeDiv = document.createElement("div");
         timeDiv.classList.add("recipeTime");
@@ -65,6 +76,11 @@ export class Recipe {
         return timeDiv;
     }
 
+     /**
+     * add title to recipe
+     * @param description recipe title
+     * @returns html with title
+     */
     createRecipeTitle(name) {
         let recipeTitle = document.createElement("h2");
         recipeTitle.classList.add("recipeTitle");
@@ -101,12 +117,20 @@ export class Recipe {
         return ingredientString;
     }
 
+    /**
+     * create the div with could contain the image
+     * @returns a div with the "idea of an image"
+     */
     createRecipeImg() {
         let recipeImg = document.createElement("div");
         recipeImg.classList.add("recipeImg");
         return recipeImg;
     }
 
+    /**
+     * create and format an ingredient
+     * @param ingredients an ingredient object
+     */
     createIngredients(ingredients) {
         for (let ingredient of ingredients) {
             let newIngredient = new Ingredients(

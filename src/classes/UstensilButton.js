@@ -1,7 +1,6 @@
 import { Tag } from "./Tag.js";
 import { filters } from "../data/filters.js";
 
-
 export class UstensilButton {
     constructor(ustensilArray) {
         this.ustensilArray = ustensilArray;
@@ -11,8 +10,10 @@ export class UstensilButton {
         this.list = document.getElementById("ustensilList");
         this.color = "#ed6454";
         this.open = false;
-        this.inputFocus = false;
+        this.actualArray = ustensilArray;
         this.type = "ustensil";
+        this.formElement = document.getElementById("searchTags")
+
     }
 
     setUstensilButton() {
@@ -25,35 +26,46 @@ export class UstensilButton {
         this.button.addEventListener("click", (e) => {
             e.preventDefault();
             if (this.open === false) {
-                this.panel.style.display = "block";
-                this.inputField.setAttribute(
-                    "placeholder",
-                    "Recherche un ustensile"
-                );
-                this.open = true;
+                this.setOpenState();
                 return;
             }
-            this.panel.style.display = "none";
-            this.open = false;
-            this.inputField.setAttribute("placeholder", "Ustensiles");
+            this.setClosedState();
             return;
         });
     }
 
     activateTextInput() {
         this.inputField.addEventListener("focus", (e) => {
-            this.inputField.setAttribute(
-                "placeholder",
-                "Recherche un ustensile"
-            );
-            this.panel.style.display = "block";
-            this.open = true;
+            this.setOpenState();
         });
         this.inputField.addEventListener("input", (e) => {
             e.preventDefault();
-            console.log(e.target.value);
-            this.changeOptions(e.target.value);
+            let theValue = e.target.value;
+            if (theValue.length > 0)
+                this.inputField.classList.remove("greyedPlaceholder");
+            this.changeOptions(theValue);
         });
+    }
+
+    setOpenState() {
+        this.open = true;
+        this.panel.style.display = "block";
+        this.button.innerHTML = "&wedge;";
+        this.inputField.setAttribute("placeholder", "Rechercher un ustensile");
+        this.inputField.classList.add("greyedPlaceholder");
+        this.inputField.style.borderBottomLeftRadius = "0";
+        this.inputField.style.borderBottomRightRadius = "0";
+    }
+
+    setClosedState() {
+        this.open = false;
+        this.inputField.setAttribute("placeholder", "Ustensiles");
+        this.panel.style.display = "none";
+        this.button.innerHTML = "&xvee;";
+        this.inputField.style.borderBottomLeftRadius = "5px";
+        this.inputField.style.borderBottomRightRadius = "5px";
+        this.inputField.classList.remove("greyedPlaceholder");
+
     }
 
     changeOptions(inputString) {
@@ -81,8 +93,10 @@ export class UstensilButton {
         option.textContent = item;
         option.addEventListener("click", (e) => {
             if (!filters.ustensil.includes(item))
+                this.createATag(item, this.color, this.type);
+                this.setClosedState();
+                this.formElement.reset()
 
-            this.createATag(item, this.color, this.type);
         });
         return option;
     }
