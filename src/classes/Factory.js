@@ -47,7 +47,7 @@ export class Factory {
 
         for (let recipe of this.recipes) {
             if (!this.checkIfSearchFiltered(recipe)) continue;
-            // if (!this.checkIfTagFiltered(recipe)) continue; //removed for speed test
+            if (!this.checkIfTagFiltered(recipe)) continue; //removed for speed test
             actualRecipes.push(recipe);
             recipe = new Recipe(recipe);
             recipe.generateRecipe();
