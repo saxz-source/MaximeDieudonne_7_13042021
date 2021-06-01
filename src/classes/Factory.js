@@ -47,7 +47,7 @@ export class Factory {
 
         for (let recipe of this.recipes) {
             if (!this.checkIfSearchFiltered(recipe)) continue;
-           // if (!this.checkIfTagFiltered(recipe)) continue; //removed for speed test
+            // if (!this.checkIfTagFiltered(recipe)) continue; //removed for speed test
             actualRecipes.push(recipe);
             recipe = new Recipe(recipe);
             recipe.generateRecipe();
@@ -56,11 +56,11 @@ export class Factory {
         this.actualRecipes = actualRecipes;
         let noMess;
         if (this.actualRecipes.length < 1) {
-            document.getElementById("resultSection").innerHTML = ""
-                noMess = document.createElement("p");
-                noMess.textContent = "oklm";
-                document.getElementById("resultSection").appendChild(noMess);
-            
+            document.getElementById("resultSection").innerHTML = "";
+            noMess = document.createElement("p");
+            noMess.textContent =
+                "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.";
+            document.getElementById("resultSection").appendChild(noMess);
         } else {
             if (noMess) noMess.remove();
         }
