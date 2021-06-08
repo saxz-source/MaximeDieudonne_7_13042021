@@ -41,41 +41,50 @@ export class Factory {
      * Create recipes
      */
     generateRecipes() {
-  
-        // Select recipes based on searchBar Filter
-        if (searchFilter[0]) {
-            this.actualRecipes = this.recipes.filter((r) => {
-                return (
-                    formatString(r.name).includes(this.searchFilter[0]) ||
-                    formatString(r.description).includes(this.searchFilter[0]) ||
-                    JSON.stringify(
-                        r.ingredients.map((r) => formatString(r.ingredient))
-                    ).includes(this.searchFilter[0])
-                );
-            });
-        } else {
-            this.actualRecipes = this.recipes
-        }
+        //initialise the displayed recipes
+        let actualRecipes = [];
 
-        // Select recipes based on tags filters
-       let finalRecipes = []
-        for (let recipe of this.actualRecipes) {
-            if (!this.checkIfTagFiltered(recipe)) continue; 
-            finalRecipes.push(recipe)
+        // for each recipe, check if it corresponds :
+        // 1/ to the searchBar filter
+        // 2/ to the tag filters
+        // then display recipes
+        for (let recipe of this.recipes) {
+            if (!this.checkIfSearchFiltered(recipe)) continue;
+            if (!this.checkIfTagFiltered(recipe)) continue; //removed for speed test
+            actualRecipes.push(recipe);
             recipe = new Recipe(recipe);
             recipe.generateRecipe();
         }
+        this.actualRecipes = actualRecipes;
 
-        // Signal the lack of result, if no result
-        this.handleNoRecipeMessage(finalRecipes.length);
+        // Display the lack of recipe with a message
+        this.handleNoRecipeMessage(this.actualRecipes.length);
 
         // Set the tag buttons
-        this.allIngredients = this.getAllIngredients(finalRecipes);
-        this.allAppliances = this.getAllAppliances(finalRecipes);
-        this.allUstensils = this.getAllUstensils(finalRecipes);
+        this.allIngredients = this.getAllIngredients(this.actualRecipes);
+        this.allAppliances = this.getAllAppliances(this.actualRecipes);
+        this.allUstensils = this.getAllUstensils(this.actualRecipes);
     }
 
-  
+    /**
+     * Return true if there is no filter or if the filter-string is in the recipe
+     * @param  oneRecipe a recipe
+     * @returns true or false
+     */
+    checkIfSearchFiltered(oneRecipe) {
+        if (searchFilter[0]) {
+            let fullString =
+                JSON.stringify(oneRecipe.name) +
+                JSON.stringify(oneRecipe.description) +
+                JSON.stringify(
+                    oneRecipe.ingredients.map((el) => el.ingredient)
+                );
+            fullString = formatString(fullString);
+            if (fullString.includes(formatString(searchFilter[0]))) return true;
+            return false;
+        }
+        return true;
+    }
 
     /**
      * Check if the Recipe contains one of the selected tags
@@ -120,6 +129,7 @@ export class Factory {
     }
 
     handleNoRecipeMessage(recipeLength) {
+        console.log(recipeLength);
         if (recipeLength < 1) {
             document.getElementById("resultSection").innerHTML = "";
             let noMess = document.createElement("p");
