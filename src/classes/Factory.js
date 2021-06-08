@@ -8,7 +8,6 @@ import { formatString } from "../functions/formatCompareString.js";
 export class Factory {
     constructor(recipes, filters, searchFilter) {
         this.noMessage = document.getElementById("noMessage");
-
         this.recipes = recipes;
         this.allIngredients = [];
         this.allAppliances = [];
@@ -42,62 +41,41 @@ export class Factory {
      * Create recipes
      */
     generateRecipes() {
-        const t0 = performance.now();
-        let actualRecipes = [];
+  
+        // Select recipes based on searchBar Filter
+        if (searchFilter[0]) {
+            this.actualRecipes = this.recipes.filter((r) => {
+                return (
+                    formatString(r.name).includes(this.searchFilter[0]) ||
+                    formatString(r.description).includes(this.searchFilter[0]) ||
+                    JSON.stringify(
+                        r.ingredients.map((r) => formatString(r.ingredient))
+                    ).includes(this.searchFilter[0])
+                );
+            });
+        } else {
+            this.actualRecipes = this.recipes
+        }
 
-        for (let recipe of this.recipes) {
-            if (!this.checkIfSearchFiltered(recipe)) continue;
-            if (!this.checkIfTagFiltered(recipe)) continue; //removed for speed test
-            actualRecipes.push(recipe);
+        // Select recipes based on tags filters
+       let finalRecipes = []
+        for (let recipe of this.actualRecipes) {
+            if (!this.checkIfTagFiltered(recipe)) continue; 
+            finalRecipes.push(recipe)
             recipe = new Recipe(recipe);
             recipe.generateRecipe();
         }
 
-        this.actualRecipes = actualRecipes;
-        let noMess;
-        if (this.actualRecipes.length < 1) {
-            document.getElementById("resultSection").innerHTML = "";
-            noMess = document.createElement("p");
-            noMess.textContent =
-                "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.";
-            document.getElementById("resultSection").appendChild(noMess);
-        } else {
-            if (noMess) noMess.remove();
-        }
-        const t1 = performance.now();
-        console.log(t1 - t0, "milliseconds");
-        // Actual variables for tag handling
-        this.allIngredients = this.getAllIngredients(actualRecipes);
-        this.allAppliances = this.getAllAppliances(actualRecipes);
-        this.allUstensils = this.getAllUstensils(actualRecipes);
+        // Signal the lack of result, if no result
+        this.handleNoRecipeMessage(finalRecipes.length);
+
+        // Set the tag buttons
+        this.allIngredients = this.getAllIngredients(finalRecipes);
+        this.allAppliances = this.getAllAppliances(finalRecipes);
+        this.allUstensils = this.getAllUstensils(finalRecipes);
     }
 
-    /**
-     * Return true if there is no filter or if the filter-string is in the recipe
-     * @param  oneRecipe a recipe
-     * @returns true or false
-     */
-    checkIfSearchFiltered(oneRecipe) {
-        if (searchFilter[0]) {
-            let fullString =
-                JSON.stringify(oneRecipe.name) +
-                JSON.stringify(oneRecipe.description) +
-                JSON.stringify(
-                    oneRecipe.ingredients.map((el) => el.ingredient)
-                );
-            fullString = formatString(fullString);
-            if (fullString.includes(formatString(searchFilter[0]))) return true;
-            return false;
-        }
-        return true;
-    }
-
-    formatString(string) {
-        return string
-            .toUpperCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "");
-    }
+  
 
     /**
      * Check if the Recipe contains one of the selected tags
@@ -139,6 +117,20 @@ export class Factory {
             return false;
         }
         return true;
+    }
+
+    handleNoRecipeMessage(recipeLength) {
+        if (recipeLength < 1) {
+            document.getElementById("resultSection").innerHTML = "";
+            let noMess = document.createElement("p");
+            noMess.id = "noMess";
+            noMess.textContent =
+                "Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.";
+            document.getElementById("resultSection").appendChild(noMess);
+        } else {
+            if (document.getElementById("noMess"))
+                document.getElementById("noMess").remove();
+        }
     }
 
     /**

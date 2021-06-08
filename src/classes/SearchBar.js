@@ -5,6 +5,7 @@ import {formatString} from "../functions/formatCompareString.js"
 export class SearchBar {
     constructor() {
         this.inputField = document.getElementById("searchInput");
+        this.lastInput 
     }
 
     /**
@@ -12,12 +13,14 @@ export class SearchBar {
      */
     setSearchBar() {
         this.activateSearchInput();
+        if (this.lastInput) this.inputField.value = this.lastInput
     }
 
     /**
      * set the input listener
      */
     activateSearchInput() {
+      
         this.inputField.addEventListener("input", (e) => {
             e.preventDefault();
            // performance.mark("init input");
@@ -38,6 +41,7 @@ export class SearchBar {
     resetFiltersAndHTML() {
         document.getElementById("resultSection").innerHTML = "";
         searchFilter.pop(searchFilter[0]);
+        this.lastInput = null
         launchFactory();
     }
 
@@ -47,8 +51,11 @@ export class SearchBar {
      */
     sendTheSearchInput(inputString) {
        // const t0 = performance.now();
+       this.lastInput = this.inputString
         searchFilter.pop(searchFilter[0]);
+     
         searchFilter.push(formatString(inputString));
+       
         launchFactory();
     }
 }
